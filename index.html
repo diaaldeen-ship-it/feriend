@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق الشلة التكنولوجي السينمائي 🚀🇸🇩</title>
+    <style>
+        /* 🎨 التنسيق العام وتصميم الـ Cyberpunk والذهب الملكي */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #070b19 0%, #02040a 100%);
+            color: #00f2fe;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .app-container {
+            background: rgba(10, 18, 36, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 25px;
+            border-radius: 28px;
+            width: 95%;
+            max-width: 600px;
+            text-align: center;
+            border: 2px solid #00f2fe;
+            box-shadow: 0 0 35px rgba(0, 242, 254, 0.25);
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            color: #00f2fe;
+            font-size: 26px;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            margin-bottom: 20px;
+        }
+
+        /* تنسيق عنوان الشخصيات المتغير فوق الصور */
+        .dynamic-person-title {
+            color: #ff007f;
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 0 12px rgba(255, 0, 127, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .intro-text {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .highlight-prompt {
+            display: block;
+            text-align: center;
+            font-size: 19px;
+            font-weight: 800;
+            color: #ff007f;
+            margin: 20px auto;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+        }
+
+        /* حقول الإدخال والأزرار التقنية */
+        .tech-input {
+            width: 90%;
+            padding: 16px;
+            background: #0f172a;
+            border: 2px solid #1e293b;
+            border-radius: 40px;
+            font-size: 16px;
+            text-align: center;
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .tech-input:focus {
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+        }
+
+        .tech-btn {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #020617;
+            border: none;
+            padding: 16px 45px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+            transition: 0.3s;
+        }
+
+        .tech-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+        }
+
+        /* أقسام العرض المخفية تلقائياً */
+        .quiz-section, .gallery-section, .finale-section {
+            display: none;
+        }
+
+        /* 💎 تصميم مسابقة من سيربح المليون 💎 */
+        .question-box {
+            background: #020617;
+            border: 2px solid #3b82f6;
+            padding: 20px;
+            border-radius: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 25px;
+        }
+
+        .millionaire-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .millionaire-grid { grid-template-columns: 1fr; }
+        }
+
+        .millionaire-opt {
+            background: rgba(3, 7, 18, 0.9);
+            color: #93c5fd;
+            border: 2px solid #1e40af;
+            padding: 15px;
+            border-radius: 35px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: right;
+            padding-right: 25px;
+        }
+
+        .millionaire-opt::before { content: "◆ "; color: #3b82f6; }
+
+        .millionaire-opt:hover {
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            color: #fff;
+        }
+
+        .millionaire-opt.correct-ans {
+            background: linear-gradient(90deg, #064e3b, #10b981) !important;
+            border-color: #34d399 !important;
+            color: #fff !important;
+        }
+
+        .millionaire-opt.wrong-ans {
+            background: linear-gradient(90deg, #7f1d1d, #ef4444) !important;
+            border-color: #f87171 !important;
+            color: #fff !important;
+        }
+
+        .response-terminal {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            background: #020617;
+            border: 1px dashed #00f2fe;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fbbf24;
+            display: none;
+        }
+
+        /* 📸 واجهة العرض ثلاثي الأبعاد للصور (3D Kinetic Presentation) 📸 */
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            perspective: 1000px;
+            margin-top: 20px;
+        }
+
+        .threeD-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: rotateY(90deg) scale(0.8);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .threeD-card.active {
+            opacity: 1;
+            transform: rotateY(0deg) scale(1);
+            pointer-events: auto;
+        }
+
+        .threeD-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid #00f2fe;
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.3);
+        }
+
+        .threeD-caption {
+            display: block;
+            margin-top: 15px;
+            font-size: 17px;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(0, 242, 254, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+        }
+
+        /* 👑 الواجهة الختامية المعدلة: سنعبر وننتصر وعالم الذكاء الاصطناعي 👑 */
+        .finale-section {
+            background: radial-gradient(circle at center, #111827 0%, #030712 100%);
+            border: 2px solid #ff007f;
+            box-shadow: 0 0 35px rgba(255, 0, 127, 0.3);
+            border-radius: 28px;
+            padding: 40px 25px;
+        }
+
+        .victory-title {
+            color: #ff007f;
+            font-size: 32px;
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(255, 0, 127, 0.7);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .finale-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid #00f2fe;
+            margin: 20px 0;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+
+        .finale-btn-loop {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #020617;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 40px;
+            font-size: 19px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(0, 242, 254, 0.4);
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .finale-btn-loop:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 242, 254, 0.7);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ملفات الصوت والمؤثرات التفاعلية الخلفية -->
+    <audio id="successTrack" src="song.mp3"></audio>
+    <audio id="failTrack" src="wrong.mp3"></audio>
+    <audio id="sudanHamasTrack" src="hamas.mp3" loop></audio>
+
+    <!-- الحاوية الأساسية للتطبيق -->
+    <div class="app-container" id="mainAppWrapper">
+        
+        <!-- 🔓 الواجهة الأولى: التحقق والدخول المحمّي -->
+        <div id="introPanel">
+            <h1>SYSTEM INITIALIZATION ⚡🇸🇩</h1>
+            <p class="intro-text">
+                يا جماعة الخير، الكلام انتهى والزمن جاري جري شديد، والناس دي كلها لازم تعبّر وتصل وتغير من واقعها، عشان كدا التغيير بقاء واجب لازم نعبر ونحصل الركب ونحنا قدرها وجاهزين ليهو وانا متاكد منكم.. وأنا ببداها ليكم من هنا وبفتح ليكم الطريق، تعالوا وراي ارموا قدام ..
+            </p>
+            <span class="highlight-prompt">اكمل الرصة الخوة ثابتة ........!!!</span>
+            
+            <input type="text" id="techPass" class="tech-input" placeholder="اكمل كلمة السر">
+            <br>
+            <button class="tech-btn" onclick="verifySystemAccess()">جاوب صاح وارح جوة 🔓</button>
+            <p id="passErr" style="color:#ef4444; font-weight:bold; margin-top:15px; display:none;">ركز ي زول ما تتصرف ساي وجاوب معاي ماف حاجة اسمعها للجميع (لضيو) ❌</p>
+        </div>
+
+        <!-- 💰 الواجهة الثانية: مسابقة من سيربح المليون 💎 -->
+        <div id="quizPanel" class="quiz-section">
+            <div id="questionDisplay" class="question-box">السؤال الأول: من هو العريس القادم؟</div>
+            
+            <div class="millionaire-grid" id="optionsContainer">
+                <button class="millionaire-opt" id="m1" onclick="submitAnswer(1)">أ. مونتي</button>
+                <button class="millionaire-opt" id="m2" onclick="submitAnswer(2)">ب. دحوم</button>
+                <button class="millionaire-opt" id="m3" onclick="submitAnswer(3)">ج. بابكر</button>
+                <button class="millionaire-opt" id="m4" onclick="submitAnswer(4)">د. محفوظ</button>
+            </div>
+
+            <div id="terminalMsg" class="response-terminal"></div>
+            
+            <button class="tech-btn" id="nextToGalleryBtn" style="display:none; background: linear-gradient(135deg, #ff007f, #ff758c); color:#fff;" onclick="openThreeDGallery()">انقر لرؤية المستقبل ان شاء الله 🔮✨</button>
+        </div>
+
+        <!-- 📸 الواجهة الثالثة: معرض الصور التتابعي ذو العناوين المتغيرة 📸 -->
+        <div id="galleryPanel" class="gallery-section">
+            <h2 id="galleryTitle" class="dynamic-person-title">العريس محفوظ 👑</h2>
+            
+            <div class="slide-container">
+                <!-- محفوظ (صورتين) -->
+                <div class="threeD-card active" id="slide1">
+                    <img src="image1.jpg" alt="محفوظ 1">
+                    <span class="threeD-caption">يلا دا العريس الناس تحاول تتبرك بيهو 👑</span>
+                </div>
+                <div class="threeD-card" id="slide2">
+                    <img src="image1_2.jpg" alt="محفوظ 2">
+                    <span class="threeD-caption">الرصة ثابتة والتحضيرات جارية للعريس الزين! 🎉</span>
+                </div>
+
+                <!-- دحوم (صورتين) -->
+                <div class="threeD-card" id="slide3">
+                    <img src="image2.jpg" alt="دحوم 1">
+                    <span class="threeD-caption">دا العابر حقنا ومهندسنا بعد يشوفوا ويطلع من الظلمات الي النور 📐⚡</span>
+                </div>
+                <div class="threeD-card" id="slide4">
+                    <img src="image2_2.jpg" alt="دحوم 2">
+                    <span class="threeD-caption">الهندسة في أبهى صورها والعبور التام المستحق! 🚀</span>
+                </div>
+
+                <!-- بوغبا / الوجه الإعلامي (صورتين) -->
+                <div class="threeD-card" id="slide5">
+                    <img src="image3.jpg" alt="بوغبا 1">
+                    <span class="threeD-caption">صاحب اكبر بودكاست رياضي والوجهه الاعلامي حقنا 🎙️⚽</span>
+                </div>
+                <div class="threeD-card" id="slide6">
+                    <img src="image3_2.jpg" alt="بوغبا 2">
+                    <span class="threeD-caption">قرب قريب شوف العجيب الجنوبي في صورة ! 💼</span>
+                </div>
+
+                <!-- الجلابي / بابكر (صورتين) -->
+                <div class="threeD-card" id="slide7">
+                    <img src="image4.jpg" alt="بابكر 1">
+                    <span class="threeD-caption">ووصلنا عند بابكر الجلابي والليدر الثابت دائما وابداً! ✨</span>
+                </div>
+                <!-- التعديل الثاني: تحديث رسالة الصورة الثانية لبابكر -->
+                <div class="threeD-card" id="slide8">
+                    <img src="image4_2.jpg" alt="بابكر 2">
+                    <span class="threeD-caption">ختام عرض الشلة الانتقال لتحقيق الاحلام</span>
+                </div>
+            </div>
+            
+            <button class="tech-btn" id="galleryNextBtn" onclick="nextSlide()">الصورة التالية ➔</button>
+            
+            <button class="tech-btn" id="goToFinaleBtn" style="display:none; background: linear-gradient(135deg, #ff007f, #00f2fe); color:#020617;" onclick="showFinalePanel()">رؤية صورة المبرمج والمستقبل المشرق ➔</button>
+        </div>
+
+    </div>
+
+    <!-- 👑 الواجهة الرابعة والنهائية: واجهة "سنعبر وننتصر" 👑 -->
+    <div id="finalePanel" class="finale-section" style="display: none; max-width: 600px; margin: auto; width: 95%;">
+        <div class="victory-title">سنعبر وننتصر ✌️🇸🇩</div>
+        
+        <img src="ai_coding.jpg" alt="عرض صور الذكاء الاصطناعي الأخير" class="finale-image">
+        
+        <br>
+        <!-- التعديل الثالث: تحديث نص الزر للعودة للبداية -->
+        <button class="finale-btn-loop" onclick="restartToBeginning()">نراكم قريبا في المستقبل المشرق ✨🚀</button>
+    </div>
+
+    <script>
+        let currentLevel = 1;
+        let clickedInQ2 = [];
+        let currentSlideIdx = 1;
+        const totalSlides = 8;
+
+        const slideTitles = {
+            1: "العريس محفوظ 👑",
+            2: "هنا بقاء ظاظا 👑",
+            3: "دحوم لديكم لا خوف عليكم 🚗⚡",
+            4: "المستقبل والعبور دحومنا  🚗⚡",
+            5: "بوغبا 🎙️⚽",
+            6: "باش مهندسيين 🎙️⚽",
+            7: "الجلابي 💼🔥",
+            8: "العبور الكبير 💼🔥"
+        };
+
+        function verifySystemAccess() {
+            const userInput = document.getElementById("techPass").value.trim();
+            const passErr = document.getElementById("passErr");
+
+            if (userInput === "والجكس لضيو") {
+                document.getElementById("introPanel").style.display = "none";
+                document.getElementById("quizPanel").style.display = "block";
+                passErr.style.display = "none";
+            } else {
+                passErr.style.display = "block";
+            }
+        }
+
+        function submitAnswer(optIdx) {
+            const winAudio = document.getElementById("successTrack");
+            const loseAudio = document.getElementById("failTrack");
+            const terminal = document.getElementById("terminalMsg");
+            
+            clearMillionaireStyles();
+            const chosenBtn = document.getElementById("m" + optIdx);
+
+            if (currentLevel === 1) {
+                if (optIdx === 4) {
+                    chosenBtn.classList.add("correct-ans");
+                    terminal.style.display = "block";
+                    terminal.style.color = "#10b981";
+                    terminal.textContent = "ابشر يا عريس ابشر ..بشروا معانا عشرة ثواني للعريس عشان نمش للسؤال البعدو .. 👑🎉";
+                    
+                    winAudio.play();
+                    setTimeout(() => {
+                        winAudio.pause();
+                        winAudio.currentTime = 0;
+                        switchToLevelTwo();
+                    }, 10000);
+                } else {
+                    chosenBtn.classList.add("wrong-ans");
+                    loseAudio.play();
+                    terminal.style.display = "block";
+                    terminal.style.color = "#ff007f";
+                    if (optIdx === 1) terminal.textContent = "دا حريمو كتار خليهو يختار أول واحدة! 🤦‍♂️😂";
+                    else if (optIdx === 2) terminal.textContent = "دا غلبان ربنا يطلعوا من الصناعية! 🛠️💔";
+                    else if (optIdx === 3) terminal.textContent = "دا لسه صغير! 👶🍼";
+                }
+            } else if (currentLevel === 2) {
+                chosenBtn.classList.add("wrong-ans");
+                loseAudio.play();
+                terminal.style.display = "block";
+                terminal.style.color = "#fbbf24";
+
+                // التعديل الأول: ضبط وتحديث رسائل ردم السؤال الثاني بالكامل حسب طلبك
+                if (optIdx === 1) {
+                    terminal.textContent = "مونتي دا م بطلع منها كان م اتربط بتكتب، كان م اتكتب بتشلب، كان ما اتشلب بنسافر كلنا معاهو! ✈️🔒";
+                } else if (optIdx === 2) {
+                    terminal.textContent = "دا كان عندو عارض وهسي شكلو فكه جكس جد حصلو الود يا محفوظ وسوقوا معاك كصر ينستر";
+                } else if (optIdx === 3) {
+                    terminal.textContent = "دا مرتوا عاصرهوا الله يعينوا اليعرس اول بعدها الله كريم";
+                } else if (optIdx === 4) {
+                    terminal.textContent = "دا اول لازم يغير زيت عشان م يموت ، وبعدها اكتر زول حيعبر";
+                }
+
+                if (!clickedInQ2.includes(optIdx)) clickedInQ2.push(optIdx);
+
+                if (clickedInQ2.length === 4) {
+                    setTimeout(() => {
+                        terminal.style.color = "#ff007f";
+                        terminal.style.fontSize = "18px";
+                        terminal.textContent = "نسييتني انا وما سالته عني يلا ارح عشان ارويك 😉🔥";
+                        document.getElementById("nextToGalleryBtn").style.display = "inline-block";
+                    }, 3500);
+                }
+            }
+        }
+
+        function switchToLevelTwo() {
+            currentLevel = 2;
+            clearMillionaireStyles();
+            document.getElementById("questionDisplay").textContent = "السؤال الثاني: من هو العابر القادم؟";
+            document.getElementById("terminalMsg").style.display = "none";
+            
+            document.getElementById("m1").textContent = "أ. مونتي";
+            document.getElementById("m2").textContent = "ب. بابكر";
+            document.getElementById("m3").textContent = "ج. محفوظ";
+            document.getElementById("m4").textContent = "د. دحوم";
+        }
+
+        function clearMillionaireStyles() {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById("m" + i).classList.remove("correct-ans", "wrong-ans");
+            }
+        }
+
+        function openThreeDGallery() {
+            document.getElementById("quizPanel").style.display = "none";
+            document.getElementById("galleryPanel").style.display = "block";
+            
+            document.getElementById("galleryTitle").textContent = slideTitles[1];
+            
+            const hamasTrack = document.getElementById("sudanHamasTrack");
+            hamasTrack.play().catch(error => console.log("الصوت بحاجة لضغط شاشة ليشتغل:", error));
+        }
+
+        function nextSlide() {
+            document.getElementById("slide" + currentSlideIdx).classList.remove("active");
+            currentSlideIdx++;
+
+            if (currentSlideIdx <= totalSlides) {
+                document.getElementById("slide" + currentSlideIdx).classList.add("active");
+                document.getElementById("galleryTitle").textContent = slideTitles[currentSlideIdx];
+            } else {
+                document.getElementById("galleryNextBtn").style.display = "none";
+                document.getElementById("goToFinaleBtn").style.display = "inline-block";
+                document.getElementById("galleryTitle").textContent = "كروت العبور جاهزة 🏁";
+            }
+        }
+
+        function showFinalePanel() {
+            document.getElementById("sudanHamasTrack").pause();
+            document.getElementById("mainAppWrapper").style.display = "none";
+            document.getElementById("finalePanel").style.display = "block";
+        }
+
+        function restartToBeginning() {
+            currentLevel = 1;
+            clickedInQ2 = [];
+            currentSlideIdx = 1;
+            
+            for(let i = 1; i <= totalSlides; i++) {
+                document.getElementById("slide" + i).classList.remove("active");
+            }
+            document.getElementById("slide1").classList.add("active");
+
+            document.getElementById("techPass").value = "";
+            document.getElementById("questionDisplay").textContent = "السؤال الأول: من هو العريس القادم؟";
+            document.getElementById("terminalMsg").style.display = "none";
+            document.getElementById("nextToGalleryBtn").style.display = "none";
+            document.getElementById("galleryNextBtn").style.display = "inline-block";
+            document.getElementById("goToFinaleBtn").style.display = "none";
+            
+            document.getElementById("m1").textContent = "أ. مونتي";
+            document.getElementById("m2").textContent = "ب. دحوم";
+            document.getElementById("m3").textContent = "ج. بابكر";
+            document.getElementById("m4").textContent = "د. محفوظ";
+            clearMillionaireStyles();
+
+            document.getElementById("finalePanel").style.display = "none";
+            document.getElementById("mainAppWrapper").style.display = "block";
+            document.getElementById("introPanel").style.display = "block";
+            document.getElementById("quizPanel").style.display = "none";
+            document.getElementById("galleryPanel").style.display = "none";
+        }
+    </script>
+</body>
+</html>
